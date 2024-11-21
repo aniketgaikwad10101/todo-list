@@ -3,14 +3,24 @@ const searchButton = document.getElementById("search");
 const container = document.getElementById("taskContainer");
 const completedTaskContainer = document.getElementById("completed");
 const searchResults = document.getElementById("searchResults");
-
+const toastLiveExample = document.getElementById('liveToast');
+const showTaskName = document.getElementById("toast-body")
 let tasks = [];
+
+const divClasses = [
+    "shadow", "p-3", "mb-5", "bg-body-tertiary", "rounded", "text-primary"
+];
+
+
 
 submitButton.addEventListener("click", () => {
     const taskName = document.getElementById("inp").value;
     tasks.push(taskName);
     createTask(taskName);
     document.getElementById("inp").value = "";
+    showTaskName.innerHTML = `${taskName} is added to todo list.`;
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+    toastBootstrap.show()
 
 });
 
@@ -79,6 +89,10 @@ function createTask(taskName) {
     div.style.alignItems = "center";
     div.style.justifyContent = "space-between";
     div.style.padding = "10px";
+    divClasses.forEach(className => {
+
+        div.classList.add(className);
+    })
 
     wrapDiv.style.display = "flex";
     wrapDiv.style.gap = "10px";
@@ -92,6 +106,11 @@ function createTask(taskName) {
     saveButton.innerHTML = "Save";
     doneButton.innerHTML = "Done";
 
+    delButton.classList="btn btn-danger rounded"
+    saveButton.classList="btn btn-primary rounded"
+    editButton.classList="btn btn-warning rounded"
+    doneButton.classList="btn btn-success rounded "
+    
     // Appending Childs
     wrapDiv.appendChild(delButton);
     wrapDiv.appendChild(editButton);
@@ -121,3 +140,14 @@ function completedTask(taskName) {
     completedTaskContainer.appendChild(div);
 
 }
+
+
+
+
+
+// if (submitButton) {
+  
+//   submitButton.addEventListener('click', () => {
+    
+//   })
+// }
